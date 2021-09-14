@@ -1,0 +1,53 @@
+﻿@page
+@model GrandmaCookieFactory.Pages.Recipe.AddRecipeModel
+@{
+}
+<div class="container">
+    <form method="post">
+        <div class="row justify-content-center mt-2">
+            <div class="col-3">
+                <input placeholder="Name..." type="text" asp-for="@Model.Recipe.Name" />
+            </div>
+        </div>
+        @for (int i = 0; i < Model.NumberOfIngredients; i++)
+        {
+            <div class="row justify-content-center mt-2">
+                <input placeholder="Ingredient..." type="text" asp-for="@Model.IngredientKeys[i]" />
+                <input placeholder="Amount..." type="text" asp-for="@Model.IngredientValues[i]" />
+            </div>
+        }
+        <div class="row justify-content-center mt-2">
+            <div class="col-3">
+                <input placeholder="Popularity..." type="number" asp-for="@Model.Recipe.Popularity" />
+            </div>
+        </div>
+        <div class="row justify-content-center mt-2">
+            <div class="col-3">
+                <input placeholder="Description..." type="text" asp-for="@Model.Recipe.Description" />
+                <input class="btn btn-outline-light mt-3" type="submit" value="Add Recipe" />
+            </div>
+        </div>
+    </form>
+</div>
+
+@if (Model.RecipeList != null)
+{
+    <div class="container">
+        <div class="row text-light">
+            @foreach (var item in Model.RecipeList)
+            {
+                <div class="col-4 mt-3">
+                    <h1>Recipe:</h1>
+                    <h3>Name: @item.Name</h3>
+                    @foreach (var ingredient in item.Ingredients)
+                    {
+                        <h3>Ingredient: @ingredient.Key</h3>
+                        <h3>--Amount: @ingredient.Value</h3>
+                    }
+                    <h3>Popularity: @item.Popularity</h3>
+                    <h3>Description: @item.Description</h3>
+                </div>
+            }
+        </div>
+    </div>
+}
